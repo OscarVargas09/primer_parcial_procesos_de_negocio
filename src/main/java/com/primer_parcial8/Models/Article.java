@@ -14,7 +14,7 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code
+    private Long code;
 
     @Column(length = 100, nullable = false)
     private String name;
@@ -22,10 +22,7 @@ public class Article {
     @Column(length = 500)
     private String description;
 
-    @private Date dateRegister;
-
-    @Column(length = 200, nullable = false)
-    private String category;
+    private Date dateRegister;
 
     @Column(length = 1000, nullable = false)
     private int stock;
