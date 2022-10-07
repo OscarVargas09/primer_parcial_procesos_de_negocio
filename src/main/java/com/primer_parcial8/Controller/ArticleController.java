@@ -44,7 +44,7 @@ public class ArticleController {
         Optional<Article> articleDb = articleRepository.findById(id);
         if(articleDb.isPresent()){
             try {
-                articleDb.get().setCod_prod(article.getCod_prod());
+                articleDb.get().setCodProd(article.getCodProd());
                 articleDb.get().setName(article.getName());
                 articleDb.get().setDescription(article.getDescription());
                 articleDb.get().setDateRegister(article.getDateRegister());

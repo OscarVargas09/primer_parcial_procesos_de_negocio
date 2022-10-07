@@ -42,7 +42,7 @@ public class CategoryController {
         Optional<Category> categoryDb = categoryRepository.findById(id);
         if(categoryDb.isPresent()){
             try {
-                categoryDb.get().setCod_cat(category.getCod_cat());
+                categoryDb.get().setCodCat(category.getCodCat());
                 categoryDb.get().setName(category.getName());
                 categoryDb.get().setDescription(category.getDescription());
                 return new ResponseEntity(categoryDb, HttpStatus.OK);
