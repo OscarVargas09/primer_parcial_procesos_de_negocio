@@ -37,11 +37,12 @@ public class CategoryController {
         return new ResponseEntity(category, HttpStatus.OK);
     }
 
-    @PutMapping("/category/edit/{code}")
-    public ResponseEntity updateCategory(@PathVariable Long code,@RequestBody Category category){
-        Optional<Category> categoryDb = categoryRepository.findById(code);
+    @PutMapping("/category/edit/{id}")
+    public ResponseEntity updateCategory(@PathVariable Long id,@RequestBody Category category){
+        Optional<Category> categoryDb = categoryRepository.findById(id);
         if(categoryDb.isPresent()){
             try {
+                categoryDb.get().setCod_cat(category.getCod_cat());
                 categoryDb.get().setName(category.getName());
                 categoryDb.get().setDescription(category.getDescription());
                 return new ResponseEntity(categoryDb, HttpStatus.OK);
@@ -51,9 +52,9 @@ public class CategoryController {
         }
         return ResponseEntity.notFound().build();
     }
-    @DeleteMapping("/categoty/{code}")
-    public ResponseEntity deleteCategory(@PathVariable Long code){
-        Optional<Category> categoryDb = categoryRepository.findById(code);
+    @DeleteMapping("/category/{id}")
+    public ResponseEntity deleteCategory(@PathVariable Long id){
+        Optional<Category> categoryDb = categoryRepository.findById(id);
         if(categoryDb.isPresent()){
             categoryRepository.delete(categoryDb.get());
             return ResponseEntity.noContent().build();

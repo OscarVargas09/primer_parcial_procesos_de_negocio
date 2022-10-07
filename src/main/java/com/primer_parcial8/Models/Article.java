@@ -14,7 +14,10 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private Long id;
+
+    @Column(length = 6, nullable = false)
+    private String cod_prod;
 
     @Column(length = 100, nullable = false)
     private String name;

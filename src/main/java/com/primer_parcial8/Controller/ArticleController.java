@@ -20,9 +20,9 @@ public class ArticleController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping(value = "/article/{code}")
-    public ResponseEntity getArticle(@PathVariable Long code){
-        Optional<Article> article = articleRepository.findById(code);
+    @GetMapping(value = "/article/{id}")
+    public ResponseEntity getArticle(@PathVariable Long id){
+        Optional<Article> article = articleRepository.findById(id);
         if (article.isPresent()){
             return new ResponseEntity(article, HttpStatus.OK);
         }
@@ -39,11 +39,12 @@ public class ArticleController {
         }
     }
 
-    @PutMapping("/article/edit/{code}")
-    public ResponseEntity updateArticle(@PathVariable Long code,@RequestBody Article article){
-        Optional<Article> articleDb = articleRepository.findById(code);
+    @PutMapping("/article/edit/{id}")
+    public ResponseEntity updateArticle(@PathVariable Long id,@RequestBody Article article){
+        Optional<Article> articleDb = articleRepository.findById(id);
         if(articleDb.isPresent()){
             try {
+                articleDb.get().setCod_prod(article.getCod_prod());
                 articleDb.get().setName(article.getName());
                 articleDb.get().setDescription(article.getDescription());
                 articleDb.get().setDateRegister(article.getDateRegister());
@@ -68,9 +69,9 @@ public class ArticleController {
         return new ResponseEntity(articles, HttpStatus.OK);
     }
 
-    @DeleteMapping("/article/{code}")
-    public ResponseEntity deleteArticle(@PathVariable Long code){
-        Optional<Article> articleDb = articleRepository.findById(code);
+    @DeleteMapping("/article/{id}")
+    public ResponseEntity deleteArticle(@PathVariable Long id){
+        Optional<Article> articleDb = articleRepository.findById(id);
         if(articleDb.isPresent()){
             articleRepository.delete(articleDb.get());
             return ResponseEntity.noContent().build();
