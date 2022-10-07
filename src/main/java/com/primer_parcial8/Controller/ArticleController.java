@@ -2,6 +2,7 @@ package com.primer_parcial8.Controller;
 
 import com.primer_parcial8.Models.Article;
 import com.primer_parcial8.Repository.ArticleRepository;
+import com.primer_parcial8.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,9 @@ public class ArticleController {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping(value = "/article/{code}")
     public ResponseEntity getArticle(@PathVariable Long code){

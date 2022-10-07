@@ -33,4 +33,7 @@ public class Article {
     @Column(nullable = false)
     private Float priceBuy;
 
+    @ManyToOne
+    private Category  category;
+
 }
