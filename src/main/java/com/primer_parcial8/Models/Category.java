@@ -15,7 +15,7 @@ public class Category {
     private Long id;
 
     @Column(length = 6, nullable = false)
-    private String cod_cat;
+    private String codCat;
 
     @Column(length = 200, nullable = false)
     private String name;

@@ -17,7 +17,7 @@ public class Article {
     private Long id;
 
     @Column(length = 6, nullable = false)
-    private String cod_prod;
+    private String codProd;
 
     @Column(length = 100, nullable = false)
     private String name;
