@@ -37,6 +37,14 @@ public class CategoryController {
         return new ResponseEntity(category, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/category/{id}")
+    public ResponseEntity listByID(@PathVariable Long id){
+        Optional<Category> categoryID = categoryRepository.findById(id);
+        if(categoryID.isPresent()){
+            return new ResponseEntity(categoryID, HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
     @PutMapping("/category/edit/{id}")
     public ResponseEntity updateCategory(@PathVariable Long id,@RequestBody Category category){
         Optional<Category> categoryDb = categoryRepository.findById(id);
