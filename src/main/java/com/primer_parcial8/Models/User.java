@@ -21,7 +21,7 @@ public class User {
     @Column(length = 300, nullable = false)
     @NotBlank(message = "El apellido no puede estar vacio")
     private String apellidos;
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     @NotBlank(message = "El documento no puede estar vacio y debe ser unico")
     private String documento;
     @Column(length = 100)
