@@ -1,74 +1,58 @@
 package com.primer_parcial8.Controller;
 
-
 import com.primer_parcial8.Models.Article;
 import com.primer_parcial8.Models.Category;
-import com.primer_parcial8.Repository.CategoryRepository;
+import com.primer_parcial8.Utils.JWTUtil;
+import com.primer_parcial8.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import javax.validation.Valid;
 
 @RestController
 public class CategoryController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
+    @Autowired
+    private JWTUtil jwtUtil;
 
-    @PostMapping("/category")
-    public ResponseEntity createCategory(@RequestBody Category category){
-        try {
-            categoryRepository.save(category);
-            return new ResponseEntity(category, HttpStatus.CREATED);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+    @PostMapping(value = "/category")
+    public ResponseEntity createCategory(@Valid @RequestBody Category category){
+        return categoryService.createCategory(category);
+    }
+    @GetMapping(value = "categories")
+    public ResponseEntity listCategories(@RequestHeader(value = "Authorization") String token){
+        if(jwtUtil.getKey(token)==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
+        }else{
+            return categoryService.listCategories();
         }
     }
-
-    @GetMapping(value = "/category/all")
-    public ResponseEntity listCategory(){
-        List<Category> category = categoryRepository.findAll();
-        if(category.isEmpty()){
-            return ResponseEntity.notFound().build();
+    @GetMapping(value = "category/{id}")
+    public ResponseEntity getCategory(@PathVariable Long id, @RequestHeader(value = "Authorization") String token) {
+        if(jwtUtil.getKey(token)==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
+        }else{
+            return categoryService.CategoryByID(id);
         }
-        return new ResponseEntity(category, HttpStatus.OK);
     }
-
-    @GetMapping(value = "/category/{id}")
-    public ResponseEntity listByID(@PathVariable Long id){
-        Optional<Category> categoryID = categoryRepository.findById(id);
-        if(categoryID.isPresent()){
-            return new ResponseEntity(categoryID, HttpStatus.OK);
+    @PutMapping(value = "/updateCategory/{id}")
+    public ResponseEntity updateCategory(@PathVariable Long id, @RequestBody Category category, @RequestHeader(value = "Authorization") String token){
+        if(jwtUtil.getKey(token)==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
+        }else{
+            return categoryService.updateCategory(id, category);
         }
-        return ResponseEntity.notFound().build();
     }
-    @PutMapping("/category/edit/{id}")
-    public ResponseEntity updateCategory(@PathVariable Long id,@RequestBody Category category){
-        Optional<Category> categoryDb = categoryRepository.findById(id);
-        if(categoryDb.isPresent()){
-            try {
-                categoryDb.get().setCodCat(category.getCodCat());
-                categoryDb.get().setName(category.getName());
-                categoryDb.get().setDescription(category.getDescription());
-                return new ResponseEntity(categoryDb, HttpStatus.OK);
-            }catch (Exception e){
-                return ResponseEntity.badRequest().build();
-            }
+    @DeleteMapping(value = "/deleteCategory/{id}")
+    public ResponseEntity deleteCategory(@PathVariable Long id, @RequestHeader(value = "Authorization") String token) {
+        if(jwtUtil.getKey(token)==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
+        }else{
+            return categoryService.deleteCategory(id);
         }
-        return ResponseEntity.notFound().build();
-    }
-    @DeleteMapping("/category/{id}")
-    public ResponseEntity deleteCategory(@PathVariable Long id){
-        Optional<Category> categoryDb = categoryRepository.findById(id);
-        if(categoryDb.isPresent()){
-            categoryRepository.delete(categoryDb.get());
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
     }
 }
-
-
