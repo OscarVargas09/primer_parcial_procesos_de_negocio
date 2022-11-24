@@ -22,7 +22,7 @@ public class ArticleController {
     public ResponseEntity createArticle(@Valid @RequestBody Article article){
         return articleService.createArticle(article);
     }
-    @GetMapping(value = "articles")
+    @GetMapping(value = "/articles")
     public ResponseEntity listArticles(@RequestHeader(value = "Authorization") String token){
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
@@ -30,7 +30,7 @@ public class ArticleController {
             return articleService.listArticles();
         }
     }
-    @GetMapping(value = "article/{codigo}")
+    @GetMapping(value = "/article/{codigo}")
     public ResponseEntity getArticle(@PathVariable String CodProd, @RequestHeader(value = "Authorization") String token) {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
