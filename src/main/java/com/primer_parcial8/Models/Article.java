@@ -31,10 +31,10 @@ public class Article {
     private int stock;
 
     @Column(nullable = false)
-    private Float priceSale;
+    private double priceSale;
 
     @Column(nullable = false)
-    private Float priceBuy;
+    private double priceBuy;
 
     @ManyToOne
     private Category  category;
