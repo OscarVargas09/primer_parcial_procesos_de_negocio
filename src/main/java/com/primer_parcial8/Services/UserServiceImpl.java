@@ -127,5 +127,14 @@ public class UserServiceImpl implements UserService{
         }
         return ResponseEntity.notFound().build();
     }
+
+    @Override
+    public ResponseEntity getUserByCorreo(String correo) {
+        User user = userRepository.findByCorreo(correo);
+        if(user!= null){
+            return new ResponseEntity(user, HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
 
