@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig  {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
-        http.cors().and().csrf().disable()
+        http.cors().disable().csrf().disable()
                 .authorizeRequests()
                 //.antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/usuario").permitAll()
