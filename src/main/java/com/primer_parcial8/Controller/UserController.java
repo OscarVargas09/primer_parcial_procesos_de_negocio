@@ -29,14 +29,7 @@ public class UserController {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
         }
-        try {
-            if (jwtUtil.getKey(token) == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-            }
-            return userService.getUserById(id);
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido. "+e.getMessage());
-        }
+        return userService.getUserById(id);
     }
 
     @PostMapping("/user")
@@ -50,14 +43,7 @@ public class UserController {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
         }
-        try {
-            if (jwtUtil.getKey(token) == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-            }
-            return userService.allUsers();
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido. "+e.getMessage());
-        }
+        return userService.allUsers();
     }
 
     @GetMapping("/user/{nombre}/{apellido}")
@@ -67,14 +53,7 @@ public class UserController {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
         }
-        try {
-            if (jwtUtil.getKey(token) == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-            }
-            return userService.allUsersByNameAndLastname(nombre, apellidos);
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido. "+e.getMessage());
-        }
+        return userService.allUsersByNameAndLastname(nombre, apellidos);
     }
 
     @GetMapping("/usuario/nombre/{nombre}")
@@ -83,14 +62,7 @@ public class UserController {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
         }
-        try {
-            if (jwtUtil.getKey(token) == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-            }
-            return userService.allUsersByName(nombre);
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido. "+e.getMessage());
-        }
+        return userService.allUsersByName(nombre);
     }
 
     @GetMapping("/usuario/apellidos/{apellidos}")
@@ -99,22 +71,7 @@ public class UserController {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
         }
-        try {
-            if (jwtUtil.getKey(token) == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-            }
-            return userService.allUsersByLastname(apellidos);
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido. "+e.getMessage());
-        }
-    }
-
-    @GetMapping("/usuario/correo/{correo}")
-    public ResponseEntity listaPorCorreo(@PathVariable String correo,@RequestHeader(value = "Authorization") String token ) {
-        if(jwtUtil.getKey(token) == null){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-        }
-        return userService.getUserByCorreo(correo);
+        return userService.allUsersByLastname(apellidos);
     }
 
     @PutMapping("/user/{id}")
@@ -124,14 +81,7 @@ public class UserController {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
         }
-        try {
-            if (jwtUtil.getKey(token) == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-            }
-            return userService.editUser(id, user);
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido. "+e.getMessage());
-        }
+        return userService.editUser(id, user);
     }
 
     @DeleteMapping("/user/{id}")
@@ -140,14 +90,7 @@ public class UserController {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
         }
-        try {
-            if (jwtUtil.getKey(token) == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-            }
-            return userService.deleteUserById(id);
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido. "+e.getMessage());
-        }
+        return userService.deleteUserById(id);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -32,28 +32,28 @@ public class CategoryController {
             return categoryService.listCategories();
         }
     }
-    @GetMapping(value = "category/{id}")
-    public ResponseEntity getCategory(@PathVariable Long id, @RequestHeader(value = "Authorization") String token) {
+    @GetMapping(value = "category/{codigo}")
+    public ResponseEntity getCategory(@PathVariable String codCat, @RequestHeader(value = "Authorization") String token) {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
         }else{
-            return categoryService.CategoryByID(id);
+            return categoryService.CategoryByCOD(codCat);
         }
     }
-    @PutMapping(value = "/updateCategory/{id}")
-    public ResponseEntity updateCategory(@PathVariable Long id, @RequestBody Category category, @RequestHeader(value = "Authorization") String token){
+    @PutMapping(value = "/updateCategory/{codigo}")
+    public ResponseEntity updateCategory(@PathVariable String codCat, @RequestBody Category category, @RequestHeader(value = "Authorization") String token){
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
         }else{
-            return categoryService.updateCategory(id, category);
+            return categoryService.updateCategory(codCat, category);
         }
     }
-    @DeleteMapping(value = "/deleteCategory/{id}")
-    public ResponseEntity deleteCategory(@PathVariable Long id, @RequestHeader(value = "Authorization") String token) {
+    @DeleteMapping(value = "/deleteCategory/{codigo}")
+    public ResponseEntity deleteCategory(@PathVariable String codCat, @RequestHeader(value = "Authorization") String token) {
         if(jwtUtil.getKey(token)==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("¡Token no valido!");
         }else{
-            return categoryService.deleteCategory(id);
+            return categoryService.deleteCategory(codCat);
         }
     }
 }
