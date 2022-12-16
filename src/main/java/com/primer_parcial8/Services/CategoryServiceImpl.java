@@ -40,8 +40,8 @@ public class CategoryServiceImpl implements CategoryService{
         }
     }
     @Override
-    public ResponseEntity<Category> CategoryByCOD(String codCat){
-        Optional<Category> category = categoryRepository.findByCodCat(codCat);
+    public ResponseEntity<Category> CategoryByID(Long id){
+        Optional<Category> category = categoryRepository.findById(id);
         if (category.isPresent()) {
             return new ResponseEntity(category, HttpStatus.OK);
         } else {
@@ -49,8 +49,8 @@ public class CategoryServiceImpl implements CategoryService{
         }
     }
     @Override
-    public ResponseEntity<Category> updateCategory(String codCat, Category category){
-        Optional<Category> categoryBD = categoryRepository.findByCodCat(codCat);
+    public ResponseEntity<Category> updateCategoryByID(Long id, Category category){
+        Optional<Category> categoryBD = categoryRepository.findById(id);
         if(categoryBD.isPresent()){
             try {
                 categoryBD.get().setName(category.getName());
@@ -65,8 +65,8 @@ public class CategoryServiceImpl implements CategoryService{
         }
     }
     @Override
-    public ResponseEntity<Category> deleteCategory(String codCat){
-        Optional<Category> categoryBD = categoryRepository.findByCodCat(codCat);
+    public ResponseEntity<Category> deleteCategoryByID(Long id){
+        Optional<Category> categoryBD = categoryRepository.findById(id);
         if (categoryBD.isPresent()) {
             categoryRepository.delete(categoryBD.get());
             return ResponseEntity.noContent().build();
